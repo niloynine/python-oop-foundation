@@ -1,0 +1,121 @@
+class StudentManager:
+    def __init__(self):
+        self.students=[]
+
+
+    def create_student(self,name,roll,dept,marks):
+        student=Student(name,roll,dept,marks)
+        for s in self.students:
+            if s.roll==roll:
+                print("Student with roll already exists- ", roll)
+                return
+        self.students.append(student)
+
+    def show_all(self):
+        for s in self.students:
+            s.display_info()
+            print("-"*20)
+
+    def search_by_roll(self,roll):
+        for student in self.students:
+            if student.roll==roll:
+                student.display_info()
+                return
+        print("Student not found with roll- ", roll)
+
+    def show_topper(self):
+        if not self.students:
+            print("No students found")
+            return 
+        
+        topper=self.students[0]
+        for student in self.students:
+            if student.avg>topper.avg:
+                topper=student
+
+        print("Topper: ")
+        topper.display_info()
+
+
+class Student:
+    ts=0
+   
+    def __init__(self,name,roll,dept,marks):
+        self.name=name
+        self.roll=roll
+        self.dept=dept
+        self.marks=marks
+        Student.ts+=1
+        # self.cal_avg()
+        # self.get_grade()
+
+    @property
+    def marks(self):
+        return self._marks
+  
+
+    @marks.setter
+    def marks(self, values):      
+        for mark in values:
+            if not(0 <= mark <= 100):
+                print("Invalid marks- ", mark)
+                return
+        self._marks = values
+
+    @property    
+    def avg(self):
+        return sum(self._marks) / len(self._marks)
+
+    @property    
+    def grade(self):
+        avg = self.avg
+        if avg>=80:
+            return 'A'
+        elif avg>=70:
+            return 'B'
+        elif avg>=60:
+            return 'C'
+        else:
+            return 'F'
+        
+    def display_info(self):
+        
+        print("name- ", self.name)
+        print("roll- ", self.roll)
+        print("avg mark- ", self.avg)
+        print("grade- ", self.grade)
+
+    @classmethod
+    def show_ts(cls):
+        print("total student-",cls.ts)
+        
+        
+print("total stu-",Student.ts)        
+s1=Student('niloy',16,'cste',[77,78,79])
+#print("total stu-",Student.ts)   
+s2=Student('orna',5,'cste',[81,82,83])
+#print("total stu-",Student.ts)   
+
+
+Student.show_ts()
+
+
+
+
+
+manager=StudentManager()
+
+manager.create_student("A", 10, "CSTE", [80,80,80])
+manager.create_student("B", 10, "CSTE", [70,70,70])
+
+manager.create_student('Niloy',16,'cste',[77,78,79])
+manager.create_student('Orna',5,'cste',[81,82,83])
+manager.show_all()
+s1.marks = [95, 80, 85]
+s2.marks = [95, 88, 88]
+
+
+
+manager.search_by_roll(16)
+manager.search_by_roll(100)
+manager.show_topper()

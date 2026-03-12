@@ -1,5 +1,6 @@
 class student:
     ts=0
+   
     def __init__(self,name,roll,dept,sub1,sub2,sub3):
         self.name=name
         self.roll=roll
@@ -23,20 +24,27 @@ class student:
             self.grade='F'
         
     def display_info(self):
+        self.cal_avg()
+        self.get_grade()
         print("name- ", self.name)
         print("roll- ", self.roll)
         print("avg mark- ", self.avg)
         print("grade- ", self.grade)
+
+    @classmethod
+    def show_ts(cls):
+        print("total student-",cls.ts)
         
         
 print("total stu-",student.ts)        
 s1=student('niloy',16,'cste',77,78,79)
-print("total stu-",student.ts)   
+#print("total stu-",student.ts)   
 s2=student('orna',5,'cste',81,82,83)
-print("total stu-",student.ts)   
-s1.cal_avg()
-s2.cal_avg()
-s1.get_grade()
-s2.get_grade()
+#print("total stu-",student.ts)   
+
 s1.display_info()
 s2.display_info()
+student.show_ts()
+
+s1.sub1 = 95
+s1.display_info()
